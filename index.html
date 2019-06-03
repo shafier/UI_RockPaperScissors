@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shafie: UI Rock Paper Scissors Game</title>
+    <link rel="stylesheet" type="text/css" href="styleRPS.css">
+</head>
+
+<body>
+
+<!--Step 3 in the Assignment-->
+    <div id="container">
+        <button type="button" id="rock">Give me Rock<img src="images/stones.jpg" width="120" height="90"
+                alt="Rocks"></button>
+        <button type="button" id="paper">Dame Paper<img src="images/paper.png" width="120" height="90"
+                alt="Paper"></button>
+        <button type="button" id="scissors">Gib mir Scissors<img src="images/scissors.png" width="120" height="90"
+                alt="Scissors"></button>
+<!-- 
+    to embed image onto the button element
+    https://stackoverflow.com/questions/8683528/embed-image-in-a-button-element
+    or
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image
+-->
+    </div>
+
+<!--Step 4 in the Assignment-->
+    <div id="winner"></div>
+    <div id="score"></div>
+    <div id="round"></div>
+    <div id="finalWinner"></div>
+
+    <script>
+        
+        const containW = document.querySelector('#winner');
+        const contentW = document.createElement('div');
+        contentW.classList.add('contentWinner'); // I added a new class called "contentWinner"
+
+        const containS = document.querySelector('#score');
+        const contentS = document.createElement('div');
+        contentS.classList.add('contentScore'); // I added a new class called "contentScore"
+
+        const containR = document.querySelector('#round');
+        const contentR = document.createElement('div');
+        contentR.classList.add('contentRound'); // I added a new class called "contentRound"
+
+        const containFW = document.querySelector('#finalWinner');
+        const contentFW = document.createElement('div');
+        contentFW.classList.add('contentFinalWinner'); // I added a new class called "contentFinalWinner"
+
+// part of Step 3 in the Assignment.
+        const buttonSel = document.querySelectorAll("button");
+        buttonSel.forEach((buttonEach) => {
+            // and for each "buttonEach" we add a 'click' listener AND we run "playRound function"
+            //  based on the value of "buttonEach.id". "buttonEach.id" comes from "(e)".        
+            buttonEach.addEventListener('click', (e) => {
+                playRound(buttonEach.id);
+            });
+        });
+
+// computer to play randomly Rock, Paper, or Scissors. 
+        function computerPlay() {
+            // returns a random integer from 0 to 9 
+            let randomNumber = Math.floor(Math.random() * 10);
+            if (randomNumber < 4) {
+                return 'rock';
+            } else if (randomNumber < 7) {
+                return 'paper';
+            } else {
+                return 'scissors';
+            }
+        }
+
+// global variables so that these variables in playRound() function is initialised.
+        let playerScore = 0;
+        let computerScore = 0;
+        let tieScore = 0;
+        let roundNumber = 0;
+
+// Step 5 in the Assignment. 
+// remember playerSelection & computerSelection ARE PARAMETERS! Not Values.
+        function playRound(playerSelection, computerSelection) {
+
+            let placeholderWinner = "";
+            let placeholderScore = "";
+            computerSelection = computerPlay();
+
+            if ((playerSelection == 'rock' && computerSelection == 'rock') || (playerSelection == 'paper' && computerSelection == 'paper') || (playerSelection == 'scissors' && computerSelection == 'scissors')) {
+                tieScore++;
+                placeholderWinner = 'It is a draw! ' + computerSelection + ' cannot beat another ' + playerSelection;
+            } else if ((playerSelection == 'rock' && computerSelection == 'paper') || (playerSelection == 'paper' && computerSelection == 'scissors') || (playerSelection == 'scissors' && computerSelection == 'rock')) {
+                computerScore++;
+                placeholderWinner = 'You lose! ' + computerSelection + ' beats ' + playerSelection;
+            } else if ((playerSelection == 'rock' && computerSelection == 'scissors') || (playerSelection == 'paper' && computerSelection == 'rock') || (playerSelection == 'scissors' && computerSelection == 'paper')) {
+                playerScore++;
+                placeholderWinner = 'You win! ' + computerSelection + ' does not beat ' + playerSelection;
+            } else {
+                placeholderWinner = 'We have a Human Error: ' + playerSelection;
+            }
+
+            roundNumber++;
+// part of Step 4 in the Assignment.
+            contentW.textContent = "Curent result: " + placeholderWinner;
+            containW.appendChild(contentW);
+
+            placeholderScore = "Your score is " + playerScore + " versus Computer score is " + computerScore + " with a " + tieScore + " tie(s)."
+            contentS.textContent = placeholderScore;
+            containS.appendChild(contentS);
+
+            contentR.textContent = "This is round number: " + roundNumber;
+            containR.appendChild(contentR);
+// part of Step 5 in the Assignment.
+            if (playerScore === 5 || computerScore === 5) {
+                endResult(playerScore, computerScore, tieScore);
+// below ensure the buttons are DISABLED when the score is 5.
+                document.getElementById("rock").disabled = true;
+                document.getElementById("paper").disabled = true;
+                document.getElementById("scissors").disabled = true;
+            }
+        }
+
+        function endResult(playerScore, computerScore, tieScore) {
+            let finalWinner = "";
+
+            if (playerScore > computerScore) {
+                finalWinner = "Grand Result: You win! " + "Your score is " + playerScore + " against computer's " + computerScore + " with " + tieScore + " number of ties.";
+            }
+            else if (playerScore < computerScore) {
+                finalWinner = "Grand Result: You lose! " + "Your score is " + playerScore + " against computer's " + computerScore + " with " + tieScore + " number of ties.";
+            }
+            else {
+                finalWinner = "Grand Result: It is a TIE! " + "Your score is " + playerScore + " against computer's " + computerScore + " with " + tieScore + " number of ties.";
+            }
+
+            contentFW.textContent = finalWinner;
+            containFW.appendChild(contentFW);
+        }
+/*
+ Sunday 2 June 2019
+maybe can add a BUTTON that reloads the page. This is to restart the game. Place the function to call this
+button at the end of IF "playerScore" || "computerScore" statement.
+Also I could add another BUTTON that closes the webpage.
+*/
+    </script>
+
+</body>
+
+</html>

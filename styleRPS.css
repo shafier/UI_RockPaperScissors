@@ -1,0 +1,56 @@
+/* except where stated, all info come from W3 school or Odin Project */
+
+body {
+  background-color: azure;
+}
+
+div#container {
+/* this affects the "DIV id = CONTAINER" <div id=container> </div> */
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+div#container button {
+ /* this affects the "BUTTON" in <div id=container> <button></button> </div> */ 
+    color: black;
+    border-style: solid;   
+    border-radius: 8px;
+   
+}
+
+button#rock, button#paper, button#scissors {
+    font-size: 1em;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+button#rock:hover, button#paper:hover, button#scissors:hover {
+box-shadow: 20px 20px 50px blueviolet;
+
+}
+
+.contentWinner {
+    text-align: center;
+    color: red;
+  }
+
+.contentScore {
+    text-align: center;
+    color: blueviolet;
+}
+
+.contentRound {
+    text-align: center;
+    color: mediumseagreen;
+}
+
+div.contentFinalWinner {
+    margin: 20px;
+}
+
+.contentFinalWinner {
+    text-align: center;
+    color: hotpink;
+    font-size: large;  
+}
