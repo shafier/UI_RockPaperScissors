@@ -33,6 +33,7 @@ box-shadow: 20px 20px 50px blueviolet;
 .contentWinner {
     text-align: center;
     color: red;
+    font-size: 25px;
   }
 
 .contentScore {
@@ -52,5 +53,5 @@ div.contentFinalWinner {
 .contentFinalWinner {
     text-align: center;
     color: hotpink;
-    font-size: large;  
+    font-size: 30px;  
 }
